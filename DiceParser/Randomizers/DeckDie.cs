@@ -7,7 +7,7 @@ internal class DeckDie : IRandomizer
     private readonly Dictionary<int, double> _deckCutoffs = new();
 
     private double _cutoffMin = 0.15;
-    private double _cutoffMax = 0.33;
+    private double _cutoffMax = 0.50;
 
     public int Roll(int max)
     {
