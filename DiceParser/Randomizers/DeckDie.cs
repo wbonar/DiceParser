@@ -49,5 +49,4 @@ internal class DeckDie : IRandomizer
         var currentDeckSize = currentDeck.Count;
         return currentDeckSize < cutoff * dieSize;
     }
-
 }

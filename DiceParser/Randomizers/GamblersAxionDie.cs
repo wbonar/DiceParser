@@ -25,7 +25,7 @@ internal class GamblersAxionDie : IRandomizer
 
     private void CheckDicePool(int dieSize)
     {
-        if (_dicePools[dieSize] == null || _dicePools[dieSize].Count == 0)
+        if (!_dicePools.ContainsKey(dieSize) || _dicePools[dieSize].Count == 0)
         {
             _dicePools[dieSize] = GetPoolContents(dieSize);
         }

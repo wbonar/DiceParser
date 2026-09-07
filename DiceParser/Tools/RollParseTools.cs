@@ -26,8 +26,6 @@ internal class RollParseTools
             .Replace(" ", "")
             .Replace("+", " +")
             .Replace("-", " -")
-            .Replace("kh", " kh")
-            .Replace("kl", " kl")
             .Replace("dh", " dh")
             .Replace("dl", " dl");
     }
