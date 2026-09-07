@@ -1,5 +1,4 @@
 ﻿namespace DiceParser.Randomizers;
-
 internal class FairDie : IRandomizer
 {
     private readonly Random _rng = new();

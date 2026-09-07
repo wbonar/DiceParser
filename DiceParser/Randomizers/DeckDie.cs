@@ -34,7 +34,6 @@ internal class DeckDie : IRandomizer
     
     private void BuildDeck(int dieSize)
     {
-        var newDeck = GetDeck(dieSize);
         _deckLibrary[dieSize] = Enumerable.Range(1, dieSize).OrderBy(x => _rng.Next()).ToList();
         _deckCutoffs[dieSize] = _rng.NextDouble() * (_cutoffMax - _cutoffMin) + _cutoffMin;
     }
