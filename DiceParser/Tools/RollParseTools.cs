@@ -17,15 +17,16 @@ internal class RollParseTools
         return ValidDiceRegex().IsMatch(input);
     }
 
-    private static Regex ValidDiceRegex() => new(@"((\d*)?[dD](\d+)([+-]\d+)?){1}");
+    private static Regex ValidDiceRegex() => new(@"((\d*)?[dD](\d+)(?:(?:[dD][lL]|[dD][hH])\d*)?([+-]\d+)?){1}");
 
     private static string NormalizeInput(string input)
     {
         return input
+            .ToLowerInvariant()
             .Replace(" ", "")
             .Replace("+", " +")
             .Replace("-", " -")
-            .Replace("kh", " kh")    
+            .Replace("kh", " kh")
             .Replace("kl", " kl")
             .Replace("dh", " dh")
             .Replace("dl", " dl");

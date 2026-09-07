@@ -4,5 +4,7 @@ internal enum RollCommands
 {
     Value,
     Add,
-    Subtract
+    Subtract,
+    DropLowest,
+    DropHighest
 }
