@@ -11,6 +11,8 @@ internal class ValidateTests
     [TestCase("5 * 5")]
     [TestCase("dl1")]
     [TestCase("dh1")]
+    [TestCase("kh1")]
+    [TestCase("kl1")]
     public void InvalidStrings(string s)
     {
         var ex = Assert.Throws<ArgumentException>(() => _parser.Roll(s));
@@ -24,6 +26,8 @@ internal class ValidateTests
     [TestCase("5 * 5")]
     [TestCase("dl1")]
     [TestCase("dh1")]
+    [TestCase("kh1")]
+    [TestCase("kl1")]
     public void TestStringForValidity(string s)
     {
         Assert.That(_parser.IsValidRoll(s), Is.False);
@@ -34,7 +38,12 @@ internal class ValidateTests
     [TestCase("4d6dh1")]
     [TestCase("4d6dl2")]
     [TestCase("4D6DL1")]
-    public void DropDiceIsValid(string s)
+    [TestCase("4d6kh3")]
+    [TestCase("4d6kl3")]
+    [TestCase("4d6kh1")]
+    [TestCase("4D6KH3")]
+    [TestCase("2d20kl")]
+    public void KeepAndDropDiceIsValid(string s)
     {
         Assert.That(_parser.IsValidRoll(s), Is.True);
     }

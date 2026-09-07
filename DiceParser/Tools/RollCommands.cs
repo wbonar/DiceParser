@@ -6,5 +6,7 @@ internal enum RollCommands
     Add,
     Subtract,
     DropLowest,
-    DropHighest
+    DropHighest,
+    KeepLowest,
+    KeepHighest
 }
