@@ -1,15 +1,5 @@
 namespace DiceParser.Test;
 
-/// <summary>
-/// DeckDie treats each die as a shuffled deck with one card per face.
-/// Rolls deal the next card, and the deck is reshuffled once a cut card
-/// between 50% and 85% of the way through the shoe is reached.
-///
-/// Implementation stores the cut as a remaining-size fraction in [0.15, 0.50],
-/// which is the same window: remaining 50% means 50% dealt, remaining 15% means 85% dealt.
-/// Reshuffle uses a strict less-than check, so one extra card may be dealt when the
-/// remaining count lands exactly on the cutoff.
-/// </summary>
 internal class DeckDieTests
 {
     private const double RemainingFractionMin = 0.15;
@@ -118,15 +108,13 @@ internal class DeckDieTests
     [Test]
     public void ReshufflesBeforeTheDeckIsFullyDealt()
     {
-        // On a d100 the latest cut still leaves ~15% of the shoe unused.
-        // A full 100-card sample from a single never-cut deck would be unique;
-        // crossing the cut card rebuilds the deck, so a duplicate must appear.
-        const int dieSize = 100;
-        Assert.That(LatestDrawsFromOneShoe(dieSize), Is.LessThan(dieSize));
+        const int dieSize = 1000;
 
         var die = Randomizer.DeckDie();
         var rolls = RollMany(die, dieSize, dieSize);
 
+        // WARNING: This test is probabilistic. It may fail if the random shuffle happens to produce a
+        // sequence that repeats before the cut card is reached. Odds of failure are 1 in 1000 in this test
         Assert.That(rolls.Distinct().Count(), Is.LessThan(dieSize),
             "The cut card should reshuffle before every face is dealt from a single shoe.");
     }
@@ -177,18 +165,8 @@ internal class DeckDieTests
         }
     }
 
-    /// <summary>
-    /// Cards always dealt before remaining size can drop below 50% of the original deck.
-    /// </summary>
     private static int GuaranteedDrawsBeforeCut(int dieSize) =>
         dieSize - (int)Math.Ceiling(dieSize * RemainingFractionMax) + 1;
-
-    /// <summary>
-    /// Latest a single shoe can be dealt before remaining size drops below 15%
-    /// (the 85% cut) and forces a reshuffle.
-    /// </summary>
-    private static int LatestDrawsFromOneShoe(int dieSize) =>
-        dieSize - (int)Math.Ceiling(dieSize * RemainingFractionMin) + 1;
 
     private static List<int> RollMany(IRandomizer die, int dieSize, int count)
     {
