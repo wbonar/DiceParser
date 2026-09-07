@@ -17,7 +17,7 @@ internal class RollParseTools
         return ValidDiceRegex().IsMatch(input);
     }
 
-    private static Regex ValidDiceRegex() => new(@"((\d*)?[dD](\d+)(?:(?:[dD][lL]|[dD][hH])\d*)?([+-]\d+)?){1}");
+    private static Regex ValidDiceRegex() => new(@"((\d*)?[dD](\d+)(?:(?:[dD][lL]|[dD][hH]|[kK][hH]|[kK][lL])\d*)?([+-]\d+)?){1}");
 
     private static string NormalizeInput(string input)
     {
@@ -27,7 +27,9 @@ internal class RollParseTools
             .Replace("+", " +")
             .Replace("-", " -")
             .Replace("dh", " dh")
-            .Replace("dl", " dl");
+            .Replace("dl", " dl")
+            .Replace("kh", " kh")
+            .Replace("kl", " kl");
     }
         
 }

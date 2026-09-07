@@ -13,6 +13,8 @@ internal class RollEvaluator(string rawString)
             if (token is "-") return RollCommands.Subtract;
             if (token.StartsWith("dl")) return RollCommands.DropLowest;
             if (token.StartsWith("dh")) return RollCommands.DropHighest;
+            if (token.StartsWith("kl")) return RollCommands.KeepLowest;
+            if (token.StartsWith("kh")) return RollCommands.KeepHighest;
             return RollCommands.Value;
         }
     }
