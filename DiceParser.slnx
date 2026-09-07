@@ -1,3 +1,4 @@
 <Solution>
+  <Project Path="DiceParser.Test/DiceParser.Test.csproj" Id="71ddbfae-49ff-4a9f-81fd-5c532d6e4859" />
   <Project Path="DiceParser/DiceParser.csproj" />
 </Solution>
