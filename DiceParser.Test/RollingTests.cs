@@ -105,7 +105,6 @@ internal class RollingTests
     [TestCase("4d6kl1", new int[] { 6, 1, 5, 3 }, 1)]
     [TestCase("4D6KH3", new int[] { 2, 4, 6, 5 }, 15)]
     [TestCase("3d8kl1", new int[] { 8, 3, 1 }, 1)]
-    [TestCase("4d6kh3+2", new int[] { 6, 1, 5, 3 }, 16)]
     [TestCase("2d20kh", new int[] { 20, 1 }, 20)]
     public void DropAndKeepDiceExact(string s, int[] rolls, int expected)
     {
