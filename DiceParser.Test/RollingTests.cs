@@ -77,9 +77,11 @@ internal class RollingTests
     [TestCase("4d6dh2", 2, 12)]
     public void DropDiceRange(string s, int minValue, int maxValue)
     {
-        Assert.That(_parser.Roll(s), Is.GreaterThanOrEqualTo(minValue));
-        Assert.That(_parser.Roll(s), Is.LessThanOrEqualTo(maxValue));
-
+        for (int i = 0; i < 100; i++)
+        {
+            Assert.That(_parser.Roll(s), Is.GreaterThanOrEqualTo(minValue));
+            Assert.That(_parser.Roll(s), Is.LessThanOrEqualTo(maxValue));
+        }
         var criticalDie = new DiceParser(Randomizer.CriticalDie());
         Assert.That(criticalDie.Roll(s), Is.EqualTo(maxValue));
 
