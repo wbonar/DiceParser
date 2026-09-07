@@ -86,8 +86,6 @@ internal class GamblersAxionDieTests
             }
         }
 
-        // Fresh pool is one of each face. After drawing R, R has 1 copy and every
-        // other face has 2, so P(repeat) = 1/(2n-1) = 1/11 ≈ 9.1% (not 1/6).
         const double expectedRepeatRate = 1.0 / (2 * dieSize - 1);
         var repeatRate = repeats / (double)trials;
 

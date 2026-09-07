@@ -56,4 +56,27 @@ internal class RollingTests
         var failDie = new DiceParser(Randomizer.FailDie());
         Assert.That(failDie.Roll(s), Is.EqualTo(minValue));
     }
+
+    [Test]
+    [TestCase(6)]
+    [TestCase(20)]
+    [TestCase(100)]
+    public void DeckHasOneCardPerFace(int dieSize)
+    {
+        var die = Randomizer.DeckDie();
+        var rolls = RollMany(die, dieSize, dieSize * 50).OrderBy(x => x);
+
+        Assert.That(rolls.Distinct(), Is.EquivalentTo(Enumerable.Range(1, dieSize)));
+    }
+
+    private static List<int> RollMany(IRandomizer die, int dieSize, int count)
+    {
+        var rolls = new List<int>(count);
+        for (var i = 0; i < count; i++)
+        {
+            rolls.Add(die.Roll(dieSize));
+        }
+
+        return rolls;
+    }
 }
