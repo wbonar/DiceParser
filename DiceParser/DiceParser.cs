@@ -20,13 +20,15 @@ public class DiceParser : IDiceParser
         var members = RollParseTools.SplitToFormatMembers(s).ToArray();
         if (members.Length == 0) throw new ArgumentException("Invalid Roll String");
 
+        var currentDice = new List<int>();
         for (var i = 0; i < members.Length; i++)
         {
             switch (members[i].Command)
             {
                 case RollCommands.Value:
                     {
-                        total = members[i].Evaluate(_randomizer);
+                        currentDice = members[i].EvaluateDice(_randomizer);
+                        total = currentDice.Sum();
                         break;
                     }
                 case RollCommands.Add:
@@ -41,10 +43,30 @@ public class DiceParser : IDiceParser
                         total -= members[i].Evaluate(_randomizer);
                         break;
                     }
-
+                case RollCommands.DropLowest:
+                    {
+                        currentDice = DropDice(currentDice, members[i].ModifierCount, dropHighest: false);
+                        total = currentDice.Sum();
+                        break;
+                    }
+                case RollCommands.DropHighest:
+                    {
+                        currentDice = DropDice(currentDice, members[i].ModifierCount, dropHighest: true);
+                        total = currentDice.Sum();
+                        break;
+                    }
             }
         }
 
         return total;
+    }
+
+    private static List<int> DropDice(List<int> dice, int count, bool dropHighest)
+    {
+        if (dice.Count == 0) throw new ArgumentException("Invalid Roll String");
+
+        return dropHighest
+            ? dice.OrderByDescending(value => value).Skip(count).ToList()
+            : dice.OrderBy(value => value).Skip(count).ToList();
     }
 }
